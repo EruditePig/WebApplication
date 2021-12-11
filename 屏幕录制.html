@@ -1,0 +1,86 @@
+<html><head>
+
+  <meta charset="utf-8">
+  <meta name="description" content="WebRTC分享屏幕与录屏示例|an.rustfisher.com">
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+  <meta itemprop="description" content="WebRTC分享屏幕与录屏示例|an.rustfisher.com">
+  <meta itemprop="name" content="WebRTC分享屏幕与录屏示例|an.rustfisher.com">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta id="theme-color" name="theme-color" content="#ffffff">
+
+  <base target="_blank">
+
+  <title>WebRTC分享屏幕与录屏示例 | an.rustfisher.com</title>
+
+  <link rel="icon" sizes="192x192" href="../../../_media/favicon.ico">
+  <link rel="stylesheet" href="../css/main.css">
+
+<script id="picviewer-page-script">(function(messageID){
+                var frameID=Math.random();
+                var frames={
+                    top:window.top,
+                };
+
+                window.addEventListener('message',function(e){
+                    var data=e.data;
+                    if( !data || !data.messageID || data.messageID != messageID )return;//通信ID认证
+                    var source=e.source;
+                    if(source===window){//来自contentscript,发送出去,或者干嘛。
+                        if(data.to){
+                            data.from=frameID;
+                            frames[data.to].postMessage(data,'*');
+                        }else{
+                            switch(data.command){
+                                case 'getIframeObject':{
+                                    var frameWindow=frames[data.windowId];
+                                    var iframes=document.getElementsByTagName('iframe');
+                                    var iframe;
+                                    var targetIframe;
+                                    for(var i=iframes.length-1 ; i>=0 ; i--){
+                                        iframe=iframes[i];
+                                        if(iframe.contentWindow===frameWindow){
+                                            targetIframe=iframe;
+                                            break;
+                                        };
+                                    };
+                                    var cusEvent=document.createEvent('CustomEvent');
+                                    cusEvent.initCustomEvent('pv-getIframeObject',false,false,targetIframe);
+                                    document.dispatchEvent(cusEvent);
+                                }break;
+                            };
+                        };
+
+                    }else{//来自别的窗口的，contentscript可以直接接收，这里保存下来自的窗口的引用
+                        frames[data.from]=source;
+                    };
+                },true)
+            })("pv-0.5106795670312598")</script></head>
+
+<body>
+
+  <div id="container">
+      <a href="https://an.rustfisher.com/webrtc/web-samples/getdisplaymedia"><h2>WebRTC分享屏幕与录屏示例 getDisplayMedia </h2></a>
+      
+      <video id="localVideo" autoplay="" playsinline="" muted=""></video>
+      <button id="startBtn" disabled="">开始预览</button>
+      <button id="recordBtn">开始录制</button>
+      <button id="downloadBtn">下载</button>
+
+      <div id="msg"><p>录制开始 mediaRecorder: [object MediaRecorder]</p><p>录制停止了: [object Event]</p><p>录制开始 mediaRecorder: [object MediaRecorder]</p><p>录制停止了: [object Event]</p></div>
+  </div>
+
+  <!-- 使用本地的适配器 -->
+  <script src="https://zz.bdstatic.com/linksubmit/push.js"></script><script src="https://hm.baidu.com/hm.js?779f09048c3776cf9a3b4ffe289abb98"></script><script src="../js/adapter-latest.js" async=""></script>
+
+  <script src="js/main.js"></script>
+  <script src="../../../_ext_js/baidu.js"></script>
+
+  <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7286632197002340" crossorigin="anonymous"></script>
+  <!-- webrtc-ads -->
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7286632197002340" data-ad-slot="5964808433" data-ad-format="auto" data-full-width-responsive="true"><iframe id="aswift_0" style="height: 1px !important; max-height: 1px !important; max-width: 1px !important; width: 1px !important;"><iframe id="google_ads_frame0"></iframe></iframe></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+
+</body><div></div></html>
